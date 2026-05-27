@@ -1,0 +1,503 @@
+/* --- SPACE BACKGROUND & GLASSMORPHISM --- */
+/* Custom override stylesheet for the portfolio background animation,
+   floating galaxy effects, starfield, and glassmorphism panels. */
+:root {
+  --background-color: #000000 !important;
+  --surface-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+body {
+  background-color: #000000 !important;
+  color: #d9d9d9 !important;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Aggressively disable all conflicting background elements from main.css */
+#bg-gradient-fixed::before, 
+#bg-gradient-fixed::after,
+body::before,
+body::after,
+#blob3,
+#bg-video,
+.hero-video,
+#bg-gradient-fixed + * + header::before {
+  content: none !important;
+  display: none !important;
+  animation: none !important;
+  background: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+#bg-gradient-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: #000000 !important;
+  overflow: hidden;
+}
+
+/* Galaxy Wrapper for translation (floating) */
+.galaxy-wrapper {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible; /* Ensure no clipping of blurred edges */
+  background: transparent !important;
+}
+
+.galaxy-1 {
+  top: 5%;
+  left: 5%;
+  width: 45vw;
+  height: 45vw;
+  animation: float1 40s ease-in-out infinite alternate;
+}
+
+.galaxy-2 {
+  bottom: 5%;
+  right: 5%;
+  width: 35vw;
+  height: 35vw;
+  animation: float2 50s ease-in-out infinite alternate;
+}
+
+/* Galaxy Image for rotation */
+.galaxy-image {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent !important;
+  filter: blur(5px);
+  opacity: 0.5;
+  animation: rotateGalaxy 120s linear infinite;
+  will-change: transform;
+}
+
+.galaxy-1 .galaxy-image {
+  background-image: url("../../images/galaxy_1.png");
+}
+
+.galaxy-2 .galaxy-image {
+  background-image: url("../../images/galaxy_2.png");
+  opacity: 0.45;
+  animation-duration: 180s;
+  animation-direction: reverse;
+}
+
+@keyframes rotateGalaxy {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float1 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(10vw, 15vh); }
+}
+
+@keyframes float2 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-10vw, -15vh); }
+}
+
+/* Stars */
+.stars-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: transparent;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: twinkle var(--duration) ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.3); }
+}
+
+/* Glassmorphism Overrides */
+.header, .scrolled .header {
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.section, .main, .hero, .about, .resume, .portfolio {
+  background: transparent !important;
+}
+
+/* UI Elements Glassmorphism */
+.profile-card, 
+.content-wrapper, 
+.exp-card, 
+.timeline-content, 
+.section-title,
+.portfolio-card,
+.error-box,
+.info-card,
+.contact-card,
+.header-content {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(12px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+  border-radius: 20px !important;
+}
+
+.exp-card:hover, .timeline-content:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+
+.footer {
+  background: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(20px) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Assurer la lisibilité du texte */
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+p, span, li, a {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.subtitle {
+  background-image: var(--accent-gradient) !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+}
+
+/* --- Premium Click Portfolio Cards --- */
+.portfolio-card.premium-click {
+  position: relative;
+  overflow: hidden !important; 
+  border-radius: 20px !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer; /* Indicate it's clickable */
+}
+
+.portfolio-card.premium-click:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.portfolio-image-wrapper {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.portfolio-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.portfolio-card.premium-click:hover .portfolio-image-wrapper img {
+  transform: scale(1.05);
+}
+
+.portfolio-overlay {
+  padding: 20px;
+  background: rgba(10, 8, 30, 0.65) !important;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-overlay h4 {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.portfolio-overlay p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.click-hint {
+  font-size: 0.85rem;
+  color: #a8b2ff;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-card.premium-click:hover .click-hint {
+  opacity: 1;
+}
+
+
+/* --- Glassmorphism Modal --- */
+.glass-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 20px;
+}
+
+.glass-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.glass-modal-content {
+  background: rgba(15, 15, 40, 0.85);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.glass-modal.active .glass-modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 10;
+}
+
+.close-modal:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1) rotate(90deg);
+}
+
+.glass-modal-header {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-modal-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.glass-modal-header h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 25px 20px;
+  background: linear-gradient(to top, rgba(15, 15, 40, 0.95), transparent);
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+}
+
+.glass-modal-body {
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.glass-modal-body h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+/* AC List styles (reused from hover panel) */
+.ac-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ac-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ac-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.ac-item a {
+  display: block;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.ac-item i {
+  color: #a8b2ff;
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+.ac-details {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7) !important;
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
+  padding-top: 10px;
+  line-height: 1.5;
+}
+
+/* Custom scrollbar for modal body */
+.glass-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.glass-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.glass-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+/* --- Reflexive Details (Level 3 Modal) --- */
+.reflexive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .reflexive-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ref-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 25px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.ref-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.ref-card-icon {
+  font-size: 1.6rem;
+  color: #a8b2ff;
+  margin-bottom: 12px;
+}
+
+.ref-card h5 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+.ref-card p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ac-code-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-right: 12px;
+}
+
+.reflexive-project {
+  background: rgba(10, 8, 30, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 25px;
+  transition: transform 0.3s ease;
+}
+
+.reflexive-project:hover {
+  background: rgba(10, 8, 30, 0.7);
+  transform: translateY(-2px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.reflexive-project h5 {
+  color: #a8b2ff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
